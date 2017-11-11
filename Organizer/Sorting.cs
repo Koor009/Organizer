@@ -15,11 +15,11 @@ namespace Organizer
             {
                 var note = db.Notes;
                 Console.WriteLine("You want sorted our data base?");
-                string button1 = Console.ReadLine();
+                string someEvent = Console.ReadLine();
 
-                if (button1 == "Yes" || button1 == "yes")
+                if (someEvent == "Yes" || someEvent == "yes")
                 {
-                    while (button1 == "Yes" || button1 == "yes")
+                    while (someEvent == "Yes" || someEvent == "yes")
                     {
                         Console.WriteLine("How are you want sorted our notes: Date, Name, Id");
                         string searchCriteria = Console.ReadLine();
@@ -56,7 +56,7 @@ namespace Organizer
                                 break;
                         }
                         Console.WriteLine("Do you want sorted again");
-                        button1 = Console.ReadLine();
+                        someEvent = Console.ReadLine();
                     
                     }
                 }
