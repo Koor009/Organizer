@@ -57,6 +57,7 @@ namespace Organizer
                         }
                         Console.WriteLine("Do you want sorted again");
                         button1 = Console.ReadLine();
+                    
                     }
                 }
             }

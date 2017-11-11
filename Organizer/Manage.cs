@@ -124,7 +124,7 @@ namespace Organizer
 
             using (NoteContext db = new NoteContext())
             {
-                
+               
                 var note = db.Notes;
                 nodeForModification = note.FirstOrDefault(nots => nots.Id == chooseId);
                 Console.WriteLine("Select to change Text");
