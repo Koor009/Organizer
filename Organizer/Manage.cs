@@ -63,7 +63,6 @@ namespace Organizer
                         Console.WriteLine($"{nt.Id}.{nt.Name} = {nt.Text} : {nt.Date}");
                     }
                 }
-
             }
         }
         public void ModifiedText()

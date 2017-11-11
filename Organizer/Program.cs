@@ -21,10 +21,19 @@ namespace Organizer
                 {
                     Console.WriteLine($"{nt.Id}.{nt.Name} = {nt.Text} : {nt.Date}");
                 } 
-                Console.WriteLine("Do you want to do operation : delete,modify,add ");
+                
             }
-            Manage manage = new Manage();
-            manage.ModifiedText();
+            Console.WriteLine("Do you want to do operation(yes/no): 1-delete,  2-modifyName, 3-modifyText, 4-modifyDate, 5-add");
+            string someAction = Console.ReadLine();
+            if (someAction.ToLower() == "yes")
+            {
+                Operation operation = new Operation();
+                operation.SomeOperation();
+            }
+
+
+
+
         }
     }
 }
