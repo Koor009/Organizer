@@ -29,6 +29,7 @@ namespace Organizer
                 case 5:
                     manage.Added();
                     break;
+
             }
         }
     }
