@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IManage.cs" />
     <Compile Include="Manage.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="NoteContext.cs" />

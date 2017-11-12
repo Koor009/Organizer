@@ -23,7 +23,7 @@ namespace Organizer
                 } 
                 
             }
-            Console.WriteLine("Do you want to do operation(yes/no): 1-delete,  2-modifyName, 3-modifyText, 4-modifyDate, 5-add");
+            Console.WriteLine("Do you want to do operation(yes/no): 1-delete,  2-modif 3-add");
             string someAction = Console.ReadLine();
             if (someAction.ToLower() == "yes")
             {

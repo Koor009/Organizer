@@ -1,66 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
 
 namespace Organizer
 {
-    class Sorting
+    internal class Sorting
     {
+        private readonly string someEvent = "yes";
         public void SortedNote()
         {
             using (NoteContext db = new NoteContext())
             {
-                var note = db.Notes;
                 Console.WriteLine("You want sorted our data base?");
-                string someEvent = Console.ReadLine();
-
-                if (someEvent == "Yes" || someEvent == "yes")
-                {
-                    while (someEvent == "Yes" || someEvent == "yes")
+                string ask = Console.ReadLine()?.ToLower();
+                    while (someEvent == ask)
                     {
-                        Console.WriteLine("How are you want sorted our notes: Date, Name, Id");
-                        string searchCriteria = Console.ReadLine();
+                        Console.WriteLine("How are you want sorted our notes: date, name, id");
+                    string searchCriteria = Console.ReadLine()?.ToLower();
                         switch (searchCriteria)
                         {
-                            case "Id":
                             case "id":
-                                var sortedNodeId = note.OrderBy(n => n.Id);
-                                Console.WriteLine();
-                                foreach (Note item in sortedNodeId)
-                                {
-                                    Console.WriteLine($"{item.Id}.{item.Name} = {item.Text} : {item.Date}");
-                                }
-                                break;
-                            case "Name":
+                                IEnumerable<Note> sortedNodeId = db.Notes.OrderBy(note => note.Id);
+                                ShowSort(sortedNodeId);                                
+                            break;
                             case "name":
-                                var sortedNodeName = note.OrderBy(n => n.Name);
-                                Console.WriteLine();
-                                foreach (Note item in sortedNodeName)
-                                {
-                                    Console.WriteLine($"{item.Id}.{item.Name} = {item.Text} : {item.Date}");
-                                }
+                                IEnumerable<Note> sortedNodeName = db.Notes.OrderBy(note => note.Name);
+                                ShowSort(sortedNodeName);
                                 break;
-                            case "Date":
                             case "date":
-                                var sortedNodeDate = note.OrderBy(n => n.Date);
-                                Console.WriteLine();
-                                foreach (Note item in sortedNodeDate)
-                                {
-                                    Console.WriteLine($"{item.Id}.{item.Name} = {item.Text} : {item.Date}");
-                                }
+                                IEnumerable<Note> sortedNodeDate = db.Notes.OrderBy(note => note.Date);
+                                ShowSort(sortedNodeDate);
                                 break;
                             default:
                                 break;
                         }
                         Console.WriteLine("Do you want sorted again");
-                        someEvent = Console.ReadLine();
-                    
+                        ask = Console.ReadLine();
                     }
-                }
             }
+        }
+        public void ShowSort(IEnumerable<Note> sort)
+        {
+                foreach (Note note in sort)
+                {
+                    Console.WriteLine($"{note.Id}. {note.Name} = {note.Text} : {note.Date}");
+                }
         }
     }
 }

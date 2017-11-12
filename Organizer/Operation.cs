@@ -1,33 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Organizer
 {
-    class Operation
+    internal class Operation
     {
-        public void SomeOperation()
+        public enum EnumOperation
+        {
+            Add,
+            Delete,
+            Edit
+        }
+        public void SomeOperation(EnumOperation operation)
         {
             Manage manage = new Manage();
-            int someOperation = int.Parse(Console.ReadLine());
-            switch (someOperation)
+            switch (operation)
             {
-                case 1:
-                    manage.Edited();
+                case EnumOperation.Add:
+                    manage.Add();
                     break;
-                case 2:
-                    manage.ModifiedName();
+                case EnumOperation.Delete:
+                    manage.Delete();
                     break;
-                case 3:
-                    manage.ModifiedText();
-                    break;
-                case 4:
-                    manage.ModifiedDate();
-                    break;
-                case 5:
-                    manage.Added();
+                case EnumOperation.Edit:
+                    manage.Edit();
                     break;
                      
             }

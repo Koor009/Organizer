@@ -1,50 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
 
 namespace Organizer
 {
-    class Manage
+    internal class Manage : IManage
     {
-        public void Added()
+        public readonly string _stateAsk = "yes";
+        private int _id;
+        public void Add()
         {
             using (NoteContext db = new NoteContext())
             {
-                var note = db.Notes; 
+                IDbSet<Note> _notes = db.Notes;
                 Console.WriteLine("Do you want create new note");
                 string someChoose = Console.ReadLine();
-                if (someChoose.ToLower() == "yes")
+                if (someChoose.ToLower() == _stateAsk)
                 {
                     Console.WriteLine("Write name note");
-                    string name = Console.ReadLine();
-                    Console.WriteLine("Write text note");
-                    string text = Console.ReadLine();
+                    string _name = Console.ReadLine();
 
-                    db.Notes.Add(new Note() { Name = name, Text = text, Date = DateTime.UtcNow });
-                    db.SaveChanges();
-                }
-                Console.WriteLine("Show all Notes");
-                string someState = Console.ReadLine();
-                if (someState.ToLower() == "yes")
-                {
-                    foreach (var nt in note)
+                    Console.WriteLine("Write text note");
+                    string _text = Console.ReadLine();
+
+                    db.Notes.Add(new Note()
                     {
-                        Console.WriteLine($"{nt.Id}.{nt.Name} = {nt.Text} : {nt.Date}");
-                    }
-                }
-            }    
+                        Name = _name,
+                        Text = _text,
+                        Date = DateTime.UtcNow
+                    });
+                    db.SaveChanges();
+                    GetNote();
+                }               
+            }
         }
-        public void Edited()
+
+        public void Delete()
         {
-            Console.WriteLine("How you want delete element ");
-            int chooseId =int.Parse(Console.ReadLine());
+           Console.WriteLine("How you want delete element ");
+            
+            int _id;
+            int.TryParse(Console.ReadLine(),out _id);
             using (NoteContext db = new NoteContext())
             {
-                var note = db.Notes;
-                Note noteForDelete = note.FirstOrDefault(n=>n.Id==chooseId);
+                IDbSet<Note> notes = db.Notes;
+                Note noteForDelete = notes.FirstOrDefault(note => note.Id == _id);
                 if (noteForDelete != null)
                 {
                     db.Entry(noteForDelete).State = EntityState.Deleted;
@@ -54,104 +55,52 @@ namespace Organizer
                 {
                     Console.WriteLine("This index empty");
                 }
-                Console.WriteLine("Show all Notes");
-                string someState = Console.ReadLine();
-                if (someState.ToLower() == "yes")
-                {
-                    foreach (var nt in note)
-                    {
-                        Console.WriteLine($"{nt.Id}.{nt.Name} = {nt.Text} : {nt.Date}");
-                    }
-                }
+                GetNote();
             }
         }
-        public void ModifiedText()
-        {
-            Note nodeForModification;
-            Console.WriteLine("Select to change Id");
-            int chooseId = int.Parse(Console.ReadLine());
-            
-            using (NoteContext db = new NoteContext())
-            {
-                var note = db.Notes;
-                nodeForModification = note.FirstOrDefault(nots => nots.Id == chooseId);
-                Console.WriteLine("Select to change Text");
-                string chooseText = Console.ReadLine();
-                nodeForModification.Text = chooseText;
-                db.SaveChanges();
-                Console.WriteLine("Show all Notes");
-                string someState = Console.ReadLine();
-                if (someState.ToLower() == "yes")
-                {
-                    foreach (var nt in note)
-                    {
-                        Console.WriteLine($"{nt.Id}.{nt.Name} = {nt.Text} : {nt.Date}");
-                    }
-                }
-            }
-        }
-        public void ModifiedName()
-        {
-            Note nodeForModification;
-            Console.WriteLine("Select to change Id");
-            int chooseId = int.Parse(Console.ReadLine());
 
-            using (NoteContext db = new NoteContext())
+        public void Edit()
+        {
+            int _id;
+            int.TryParse(Console.ReadLine(), out _id);
+            Console.WriteLine("Do you want edit note?");
+            string someChoose = Console.ReadLine();
+            if (someChoose.ToLower() == _stateAsk)
+                using (NoteContext db = new NoteContext())
             {
-                var note = db.Notes;
-                nodeForModification = note.FirstOrDefault(nots => nots.Id == chooseId);
-                Console.WriteLine("Select to change Name");
-                string chooseText = Console.ReadLine();
-                nodeForModification.Name = chooseText;
-                db.SaveChanges();
-                Console.WriteLine("Show all Notes");
-                string someState = Console.ReadLine();
-                if (someState.ToLower() == "yes")
+                Note noteForEdit = db.Notes.FirstOrDefault(note => note.Id == _id);
+                if (noteForEdit != null)
                 {
-                    foreach (var nt in note)
-                    {
-                        Console.WriteLine($"{nt.Id}.{nt.Name} = {nt.Text} : {nt.Date}");
-                    }
+                    Console.WriteLine("Edit name");
+                    string name = Console.ReadLine();
+                    noteForEdit.Name = name;
+
+                    Console.WriteLine("Edit text");
+                    string text = Console.ReadLine();
+                    noteForEdit.Name = text;
+
+                    noteForEdit.Date = DateTime.UtcNow;
+                    db.Entry(noteForEdit).State = EntityState.Modified;
+                        db.SaveChanges();
                 }
+                GetNote();
             }
         }
-        public void ModifiedDate()
-        {
-            Note nodeForModification;
-            Console.WriteLine("Select to change Id");
-            int chooseId = int.Parse(Console.ReadLine());
 
+        public void GetNote()
+        {
             using (NoteContext db = new NoteContext())
             {
-               
-                var note = db.Notes;
-                nodeForModification = note.FirstOrDefault(nots => nots.Id == chooseId);
-                Console.WriteLine("Select to change Text");
-                string choose = Console.ReadLine();
-                Console.WriteLine("Set Year");
-                int dateYear = int.Parse(Console.ReadLine());
-                Console.WriteLine("Set Month");
-                int dateMonth = int.Parse(Console.ReadLine());
-                Console.WriteLine("Set Day");
-                int dateDay = int.Parse(Console.ReadLine());
-                Console.WriteLine("Set Hour");
-                int dateHour = int.Parse(Console.ReadLine());
-                Console.WriteLine("Set Minutes");
-                int dateMinutes = int.Parse(Console.ReadLine());
-                Console.WriteLine("Set Second");
-                int dateSecond = int.Parse(Console.ReadLine());
-                nodeForModification.Date = new DateTime(dateYear,dateMonth,dateDay,dateHour,dateMinutes,dateSecond);
-                db.SaveChanges();
                 Console.WriteLine("Show all Notes");
                 string someState = Console.ReadLine();
-                if (someState.ToLower() == "yes")
+                if (someState.ToLower() == _stateAsk)
                 {
-                    foreach (var nt in note)
+                    foreach (var note in db.Notes)
                     {
-                        Console.WriteLine($"{nt.Id}.{nt.Name} = {nt.Text} : {nt.Date}");
+                        Console.WriteLine($"{note.Id}.{note.Name} = {note.Text} : {note.Date}");
                     }
                 }
-            }
+            }  
         }
     }
 }
