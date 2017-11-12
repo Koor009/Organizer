@@ -12,5 +12,5 @@ namespace Organizer
         void Delete();
         void Edit();
         void GetNote();
-    }
+    } 
 }

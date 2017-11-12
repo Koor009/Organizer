@@ -14,7 +14,7 @@ namespace Organizer
                 Console.WriteLine("You want sorted our data base?");
                 string ask = Console.ReadLine()?.ToLower();
                     while (someEvent == ask)
-                    {
+                    { 
                         Console.WriteLine("How are you want sorted our notes: date, name, id");
                     string searchCriteria = Console.ReadLine()?.ToLower();
                         switch (searchCriteria)

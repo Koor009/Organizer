@@ -7,5 +7,5 @@ namespace Organizer
         public NoteContext() : base("NoteDb")
         { }
         public DbSet<Note> Notes { get; set; }
-    }
+    } 
 }

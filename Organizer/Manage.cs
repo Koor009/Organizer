@@ -84,7 +84,7 @@ namespace Organizer
                         db.SaveChanges();
                 }
                 GetNote();
-            }
+            } 
         }
 
         public void GetNote()

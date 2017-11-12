@@ -29,7 +29,7 @@ namespace Organizer
             {
                 Operation operation = new Operation();
                 operation.SomeOperation();
-            }
+            } 
 
 
 

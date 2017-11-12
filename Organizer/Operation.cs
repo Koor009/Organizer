@@ -7,7 +7,7 @@ namespace Organizer
         public enum EnumOperation
         {
             Add,
-            Delete,
+            Delete,  
             Edit
         }
         public void SomeOperation(EnumOperation operation)
