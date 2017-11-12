@@ -12,7 +12,7 @@ namespace Organizer
         public void Add()
         {
             using (NoteContext db = new NoteContext())
-            {
+            { 
                 IDbSet<Note> _notes = db.Notes;
                 Console.WriteLine("Do you want create new note");
                 string someChoose = Console.ReadLine();

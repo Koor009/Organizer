@@ -8,7 +8,7 @@ using System.Data.Entity;
 namespace Organizer
 {
     class Program
-    {
+    { 
         static void Main(string[] args)
         {
             using (NoteContext db = new NoteContext())

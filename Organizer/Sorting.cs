@@ -10,7 +10,7 @@ namespace Organizer
         public void SortedNote()
         {
             using (NoteContext db = new NoteContext())
-            {
+            { 
                 Console.WriteLine("You want sorted our data base?");
                 string ask = Console.ReadLine()?.ToLower();
                     while (someEvent == ask)

@@ -3,7 +3,7 @@
 namespace Organizer
 {
     internal class Operation
-    {
+    { 
         public enum EnumOperation
         {
             Add,

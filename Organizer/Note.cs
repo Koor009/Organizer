@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Organizer
 {
     internal class Note
-    {
+    { 
         public int Id { get; set; }
         public string Name { get; set; }
         public string Text { get; set; }
